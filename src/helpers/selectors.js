@@ -17,3 +17,27 @@ export function getAppointmentsForDay(state, day) {
   return dayAppointments; 
 
 }
+
+// student: expect.any(String),
+//       interviewer: expect.objectContaining({
+//         id: expect.any(Number),
+//         name: expect.any(String),
+//         avatar: expect.any(String)
+
+export function getInterview(state, interview) {
+
+  if (!interview) {
+    return null;
+  }
+
+  const combinedObj = {};
+
+  const interviewerID = interview.interviewer;
+  const studentName = interview.student;
+  const interviewerObj = state.interviewers[interviewerID]; 
+
+  combinedObj.student = studentName;
+  combinedObj.interviewer = interviewerObj;
+
+  return combinedObj;
+}
