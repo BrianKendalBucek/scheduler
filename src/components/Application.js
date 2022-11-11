@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
-import { getAppointmentsForDay, getInterview } from "helpers/selectors";
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 import axios from "axios";
 
 export default function Application(props) {
@@ -13,16 +13,6 @@ export default function Application(props) {
     appointments: {},
     interviewers: {}
   });
-  // console.log("+++++++++++", state.interviewers);
-
-  const setDay = day => setState({ ...state, day });
-
-  // const dailyAppointments = getAppointmentsForDay(state, state.day);
-  const appointments = getAppointmentsForDay(state, state.day);
-
-  const schedule = appointments.map((appointment) => {
-    const interview = getInterview(state, appointment.interview);
-  })
 
   useEffect(() => {
     Promise.all([
@@ -30,9 +20,24 @@ export default function Application(props) {
       axios.get('http://localhost:8001/api/appointments'),
       axios.get('http://localhost:8001/api/interviewers')
     ]).then((all) => {
-      setState(prev => ({...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data}));
+      setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }));
     });
   }, []);
+
+  const setDay = day => setState({ ...state, day });
+
+  const appointments = getAppointmentsForDay(state, state.day);
+  const interviewers = getInterviewersForDay(state, state.day);
+
+  const schedule = appointments.map((appointment) => {
+    const interview = getInterview(state, appointment.interview);
+    return (<Appointment
+      key={appointments.id}
+      interview={interview}
+      {...appointments}
+      interviewers={interviewers}
+    />);
+  })
 
   return (
     <main className="layout">
@@ -53,10 +58,7 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        {appointments.map(appointments => <Appointment
-          key={appointments.id}
-          {...appointments}
-        />)}
+        {schedule}
       </section>
     </main>
   );

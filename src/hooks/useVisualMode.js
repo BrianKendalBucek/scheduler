@@ -9,7 +9,7 @@ export default function useVisualMode(initialMode) {
     setMode(newMode)
 
     if (replace) {
-      history[history.length -1] = newMode;
+      history[history.length - 1] = newMode;
     } else {
       history.push(newMode);
     }
