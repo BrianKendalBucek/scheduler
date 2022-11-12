@@ -1,5 +1,7 @@
 # Interview Scheduler
 
+App that allows users to book and cancel interviews.
+
 ## Setup
 
 Install dependencies with `npm install`.
