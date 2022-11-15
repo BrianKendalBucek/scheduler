@@ -12,3 +12,5 @@ export default function Confirm(props) {
     </main>
   );
 }
+
+// () => props.onCancel(null, null)
