@@ -19,6 +19,7 @@ export default function Appointment(props) {
   const SAVING = "SAVING";
   const DELETING = "DELETING";
   const CONFIRM = "CONFIRM";
+  const EDIT = "EDIT";
 
   function save(name, interviewer) {
     const interview = {
@@ -42,21 +43,31 @@ export default function Appointment(props) {
 
   return <article className="appointment">
     <Header time={props.time} />
-    {mode === EMPTY && <Empty onAdd={() => { transition(CREATE) }} />}
+    {mode === EMPTY && <Empty
+      onAdd={() => { transition(CREATE) }} />}
     {mode === SHOW && <Show
       student={props.interview?.student}
       interviewer={props.interview?.interviewer}
-      onDelete={() => { transition(CONFIRM) }} />}
+      onDelete={() => { transition(CONFIRM) }}
+      onEdit={() => { transition(EDIT)}} />}
     {mode === CREATE && <Form
       interviewers={props.interviewers}
       onCancel={back}
       onSave={save} />}
-    {mode === SAVING && <Status message={"Saving"} />}
-    {mode === DELETING && <Status message={"Deleting"} />}
+    {mode === SAVING && <Status
+      message={"Saving"} />}
+    {mode === DELETING && <Status
+      message={"Deleting"} />}
     {mode === CONFIRM && <Confirm
       message={"Are you sure you would like to delete?"}
       onConfirm={cancel}
       onCancel={back}
     />}
+    {mode === EDIT && <Form 
+      interviewers={props.interviewers}
+      interviewer={props.interview.interviewer.id}
+      student={props.interview.student}
+      onCancel={back}
+      onSave={save} />}
   </article>;
 }
