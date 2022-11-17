@@ -3,7 +3,6 @@ import React from "react";
 // import "components/DayList.scss";
 import DayListItem from "./DayListItem";
 
-
 export default function Daylist(props) {
   const days = props.days.map(day => {
     return (
@@ -12,7 +11,7 @@ export default function Daylist(props) {
         name={day.name}
         spots={day.spots}
         selected={day.name === props.value}
-        setDay={props.onChange}
+        setDay={props.setDay}
         />)
   })
 
