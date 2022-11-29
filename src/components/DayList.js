@@ -1,6 +1,4 @@
 import React from "react";
-// import classNames from "classnames";
-// import "components/DayList.scss";
 import DayListItem from "./DayListItem";
 
 export default function Daylist(props) {
@@ -10,7 +8,7 @@ export default function Daylist(props) {
         key={day.id}
         name={day.name}
         spots={day.spots}
-        selected={day.name === props.value}
+        selected={day.name === props.day}
         setDay={props.setDay}
         />)
   })
