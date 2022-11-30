@@ -40,7 +40,9 @@ npm run storybook
 ## Stack
 
 Front-End: React, Axios, HTML, SASS, JS
+
 Back-End: Express, Node.Js, PostgreSQL
+
 Testing: Storybook, Jest, Cypress
 
 ## Dependencies
