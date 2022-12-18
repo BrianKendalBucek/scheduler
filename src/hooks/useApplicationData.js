@@ -55,7 +55,6 @@ export default function useApplicationData() {
 
     return axios.put(`/api/appointments/${id}`, { interview }).then(res => {
 
-      // if (res) {
         const days = spotsRemaining(interviewState.day, interviewState.days, appointments);
   
         setInterviewState({
@@ -63,7 +62,6 @@ export default function useApplicationData() {
           appointments,
           days
         })
-      // }
     });
   };
 
